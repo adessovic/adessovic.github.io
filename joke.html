@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Jokes</title>
+  </head>
+  <body>
+    <h2 id="joke-question"></h2>
+    <h3 id="joke-punchline"></h3>
+    <button onclick="getNewJoke()">Get Joke</button>
+  </body>
+  <script>
+    async function getJoke() {
+      const response = await fetch(
+        "https://backend-omega-seven.vercel.app/api/getjoke"
+      );
+      const res = await response.json();
+      return res;
+    }
+
+    async function getNewJoke() {
+      const joke = await getJoke();
+      console.log("Joke : ", joke[0]);
+      const { question, punchline } = joke[0];
+
+      document.querySelector("#joke-question").innerHTML = question;
+      document.querySelector("#joke-punchline").innerHTML = punchline;
+    }
+  </script>
+</html>
